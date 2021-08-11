@@ -1,0 +1,7 @@
+name: CrouchExplode
+version: ${project.version}
+main: uk.jadestudios.paper.crouchexplode.CrouchExplode
+api-version: 1.17
+authors: [ thenerdoflight ]
+description: When you crouch you explode
+website: https://jadestudios.uk
