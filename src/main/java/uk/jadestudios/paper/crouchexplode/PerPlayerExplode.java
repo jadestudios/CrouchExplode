@@ -1,8 +1,6 @@
 package uk.jadestudios.paper.crouchexplode;
 
 import com.destroystokyo.paper.ParticleBuilder;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.TextComponent;
 import org.bukkit.Particle;
 import org.bukkit.Server;
 import org.bukkit.Sound;
@@ -48,8 +46,7 @@ public final class PerPlayerExplode implements Listener {
     public void onDeath(PlayerDeathEvent event){
         Player currentPlayer = event.getEntity();
         if (this.lastPlayer.equals(currentPlayer)){
-            TextComponent text = Component.text().content(currentPlayer.getName()).append(Component.text(" died to explosive diarrhea")).build();
-            event.deathMessage(text);
+            event.setDeathMessage(currentPlayer.getName() + " died to explosive diarrhea!" );
             currentPlayer.playSound(currentPlayer.getLocation(), Sound.ENTITY_GENERIC_EXPLODE, SoundCategory.MASTER, 100,0);
             this.lastPlayer = null;
             event.getHandlers().unregister(this);
