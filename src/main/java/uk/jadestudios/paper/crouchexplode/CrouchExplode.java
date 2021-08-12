@@ -1,23 +1,13 @@
 package uk.jadestudios.paper.crouchexplode;
 
-import com.destroystokyo.paper.ParticleBuilder;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.TextComponent;
-import org.bukkit.Color;
-import org.bukkit.Particle;
-import org.bukkit.Sound;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class CrouchExplode extends JavaPlugin implements Listener {
 
     private double chance;
-    private Player lastPlayer;
-    //TODO: May not be iosafe since last player might not be new instances
 
     @Override
     public void onEnable() {
@@ -30,7 +20,7 @@ public final class CrouchExplode extends JavaPlugin implements Listener {
             chance = 0.5;
         }
 
-        chance = 1 - chance;
+        chance = 1 - chance; //Since 1 means always in the config
         this.getServer().getPluginManager().registerEvents(this, this);
     }
 
@@ -38,30 +28,9 @@ public final class CrouchExplode extends JavaPlugin implements Listener {
     public void onDisable() {}
 
     @EventHandler
-     public void onCrouch(PlayerToggleSneakEvent event){
-        if(event.isSneaking()){
-            if(Math.random() > chance){
-                lastPlayer = event.getPlayer();
-                ParticleBuilder explosion = new ParticleBuilder(Particle.EXPLOSION_LARGE);
-                explosion.count(9);
-                explosion.location(lastPlayer.getLocation());
-                explosion.spawn();
-                lastPlayer.setHealth(0);
-            }
+    public void onCrouch(PlayerToggleSneakEvent event){
+        if(event.isSneaking() && Math.random() > this.chance){
+            new PerPlayerExplode(event.getPlayer(), this.getServer(), this);
         }
     }
-
-    @EventHandler
-    public void onDeath(PlayerDeathEvent event){
-        if(this.lastPlayer == null)return;
-        Player currentPlayer = event.getEntity();
-        if (this.lastPlayer.equals(currentPlayer)){
-            event.setDeathMessage(currentPlayer.getName() + " died to explosive diarrhea");
-            event.setDeathSound(Sound.ENTITY_GENERIC_EXPLODE);
-            this.lastPlayer = null;
-        }
-
-    }
-
-
 }
