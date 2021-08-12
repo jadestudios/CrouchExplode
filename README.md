@@ -4,8 +4,8 @@
 
 ---
 ## Compatibility
-* For Paper 1.17+
-* Java 16
+* For Paper 1.14.4+
+* Java 8+
 
 ## Features
 * Config dictates the probability of exploding
@@ -14,5 +14,5 @@
 
 ## Planned Changes
 * Add more death messages
-* Separate version for < Paper 1.17.1
+* ~~Separate version for < Paper 1.17.1~~
 
