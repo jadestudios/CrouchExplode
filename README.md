@@ -3,6 +3,10 @@
 ![enter image description here](./pics/ex.gif)
 
 ---
+## Compatibility
+* For Paper 1.17+
+* Java 16
+
 ## Features
 * Config dictates the probability of exploding
 * Explosion sound on exploding death
@@ -10,3 +14,5 @@
 
 ## Planned Changes
 * Add more death messages
+* Separate version for < Paper 1.17.1
+
