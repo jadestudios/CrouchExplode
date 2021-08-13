@@ -13,7 +13,6 @@ import org.bukkit.plugin.Plugin;
 
 public final class PerPlayerExplode implements Listener {
     private Player lastPlayer;
-    //TODO: ADD MORE DEATH MESSAGES
 
     /**
      * Creates an onDeath listener and explodes the player
@@ -46,10 +45,40 @@ public final class PerPlayerExplode implements Listener {
     public void onDeath(PlayerDeathEvent event){
         Player currentPlayer = event.getEntity();
         if (this.lastPlayer.equals(currentPlayer)){
-            event.setDeathMessage(currentPlayer.getName() + " died to explosive diarrhea!" );
+            event.setDeathMessage(currentPlayer.getName() + this.deathMessageGenerator());
             currentPlayer.playSound(currentPlayer.getLocation(), Sound.ENTITY_GENERIC_EXPLODE, SoundCategory.MASTER, 100,0);
             this.lastPlayer = null;
             event.getHandlers().unregister(this);
         }
+    }
+
+    /**
+     * Randomly selects from 5 hard coded messages
+     * @return a string
+     */
+    private String deathMessageGenerator(){
+        String deathString;
+
+        switch ((int)Math.floor(Math.random() * 5)){
+            case 0:
+                deathString = " died to explosive diarrhea!";
+                break;
+            case 1:
+                deathString = " exploded their toilet!";
+                break;
+            case 2:
+                deathString = " ... Press F for their bum.";
+                break;
+            case 3:
+                deathString = " should have not ate Mexican food earlier.";
+                break;
+            case 4:
+                deathString = "'s butt hurts a lot.";
+                break;
+            default:
+                deathString = " just pooped their pants real hard!";
+                break;
+        }
+        return deathString;
     }
 }
