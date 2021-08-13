@@ -13,6 +13,6 @@
 * Per player instances
 
 ## Planned Changes
-* Add more death messages
+* ~~Add more death messages~~
 * ~~Separate version for < Paper 1.17.1~~
 
